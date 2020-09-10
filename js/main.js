@@ -18,7 +18,7 @@ let controls = {
 let settings = {
     start: false,
     score: 0,
-    speed: 3,
+    speed: 5,
     speedPlayer: 3,
     traffic: 5
 }
@@ -93,7 +93,7 @@ function moveEnemy() {
             enemy.y = -100 * settings.traffic;
             enemy.style.background = `transparent url('../img/enemy${Math.floor(Math.random() * 6 ) + 1}.png') center / cover no-repeat`;
             enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - enemy.offsetWidth)) + 'px';
-            settings.speed += 0.1;
+            settings.speed += 0.2;
         }
 
         enemy.style.top = enemy.y + 'px';
@@ -102,7 +102,7 @@ function moveEnemy() {
 
 function playGame() {
     if (settings.start) {
-        settings.score += settings.speed;
+        settings.score += Math.floor(settings.speed);
         score.innerHTML = 'SCORE <br/>' + settings.score;
         moveRoad();
         moveEnemy();
