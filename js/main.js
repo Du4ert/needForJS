@@ -1,3 +1,5 @@
+window.localStorage.setItem('needForJsBest', 0);
+
 const gameArea = document.querySelector('.game-area');
 const start = document.querySelector('.start');
 const score = document.querySelector('.score');
@@ -54,6 +56,7 @@ function startGame() {
     gameArea.appendChild(car);
     car.style.left = gameArea.offsetWidth/2 - car.offsetWidth/2 + 'px';
     car.style.top = 'auto';
+    car.style.transform  = '';
     settings.x = car.offsetLeft;
     settings.y = car.offsetTop;
     requestAnimationFrame(playGame);
@@ -82,9 +85,20 @@ function moveEnemy() {
             carRect.bottom >= enemyRect.top &&
             carRect.right >= enemyRect.left && 
             carRect.left <= enemyRect.right) {
+            car.style.transform = `rotate(${Math.random() * 90}deg)`;
+            enemy.style.transform = `rotate(${Math.random() * 60}deg)`;
             settings.start = false;
             start.classList.remove('hide');
+            
+            if (window.localStorage.getItem('needForJsBest') < settings.score) {
+                window.localStorage.setItem('needForJsBest', settings.score);
+                score.innerHTML = 'SCORE <br/>' + settings.score + '<br/> You are the best for now!';
+            } else {
+                score.innerHTML = 'SCORE <br/>' + settings.score + '<br/> Best: ' + window.localStorage.getItem('needForJsBest');
+            }
+
             start.style.top = score.offsetHeight + 'px';
+            
         }
 
         enemy.y += settings.speed / 2;
@@ -108,9 +122,11 @@ function playGame() {
         moveEnemy();
         if (controls.ArrowLeft && settings.x > 0) {
             settings.x -= settings.speedPlayer;
+            car.style.transform = 'rotate(-10deg)';
         }
         if (controls.ArrowRight && settings.x < (gameArea.offsetWidth - car.offsetWidth)) {
             settings.x += settings.speedPlayer;
+            car.style.transform = 'rotate(10deg)';
         }
         if (controls.ArrowDown && settings.y < (gameArea.offsetHeight - car.offsetHeight)) {
             settings.y += settings.speedPlayer;
@@ -118,6 +134,7 @@ function playGame() {
         if (controls.ArrowUp && settings.y > 0) {
             settings.y -= settings.speedPlayer;
         }
+        
 
         car.style.left = settings.x + 'px';
         car.style.top = settings.y + 'px';
@@ -139,6 +156,7 @@ function stopRun(e) {
     if (controls[key] === undefined) {
         return false;
     }
+    car.style.transform = '';
     e.preventDefault();
     controls[key] = false
 }
