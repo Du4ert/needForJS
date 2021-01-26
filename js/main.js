@@ -105,7 +105,7 @@ function moveEnemy() {
         
         if (enemy.y >= document.documentElement.clientHeight) {
             enemy.y = -100 * settings.traffic;
-            enemy.style.background = `transparent url('enemy${Math.floor(Math.random() * 6 ) + 1}.png') center / cover no-repeat`;
+            enemy.style.background = `transparent url('img/enemy${Math.floor(Math.random() * 6 ) + 1}.png') center / cover no-repeat`;
             enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - enemy.offsetWidth)) + 'px';
             settings.speed += 0.2;
         }
