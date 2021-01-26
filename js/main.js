@@ -94,7 +94,7 @@ function moveEnemy() {
                 window.localStorage.setItem('needForJsBest', settings.score);
                 score.innerHTML = 'SCORE <br/>' + settings.score + '<br/> You are the best for now!';
             } else {
-                score.innerHTML = 'SCORE <br/>' + settings.score + '<br/> Best: ' + window.localStorage.getItem('needForJsBest');
+                score.innerHTML = 'SCORE <br/>' + settings.score + '<br/> Best: ' + window.localStorage.getItem('needForJsBest') ;
             }
 
             start.style.top = score.offsetHeight + 'px';
